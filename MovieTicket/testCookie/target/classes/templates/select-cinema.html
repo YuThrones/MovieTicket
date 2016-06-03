@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>select cinema</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+      .cinemaholder {
+        font-size: 20px;
+        border:2px solid #ccc;
+        border-radius:5px;
+        margin-bottom: 30px;
+        padding: 5px;
+      }
+      .cinema_name:hover {
+        background-color: #337ab7;
+        color: #fff;
+        text-decoration: none;
+      }
+      .cinema_name {
+        padding: 0px 8px;
+        line-height: 22px;
+        margin: 8px 5px;
+        cursor: pointer;
+        color: #333;
+        display: inline-block;
+        white-space: nowrap;
+        border-radius:5px;
+      }
+      .cinemaholder .cinema_active {
+        background-color: #337ab7;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .dateholder {
+        font-size: 20px;
+        border:2px solid #ccc;
+        border-radius:5px;
+        padding: 5px;
+      }
+      .date:hover {
+        background-color: #337ab7;
+        color: #fff;
+        text-decoration: none;
+      }
+      .date {
+        padding: 0px 8px;
+        line-height: 22px;
+        margin: 8px 5px;
+        cursor: pointer;
+        color: #333;
+        display: inline-block;
+        white-space: nowrap;
+        border-radius:5px;
+      }
+      .dateholder .date_active {
+        background-color: #337ab7;
+        color: #fff;
+        text-decoration: none;
+      }
+    </style>
+
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">DPT</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Main Page</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./register.html">Register</a></li>
+            <li><a href="./login.html">Login</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <h3>美国队长3</h3>
+    <hr />
+    <h4>日期：</h4>
+    <div class="dateholder">
+      <a href="javascritp:void(0);" class="date date_active">今天（5月19日）</a>
+      <a href="javascritp:void(0);" class="date date_noactive" >明天（5月20日）</a>
+      <a href="javascritp:void(0);" class="date date_noactive" >后天（5月21日）</a>
+      <a href="javascritp:void(0);" class="date date_noactive">周日（5月22日）</a>
+    </div>  
+    <h4>影院：</h4>
+    <div class="cinemaholder">
+      <a href="javascritp:void(0);" class="cinema_name cinema_active">大光明电影院</a>
+      <a href="javascritp:void(0);" class="cinema_name cinema_noactive" >三林大光明DFC影城</a>
+      <a href="javascritp:void(0);" class="cinema_name cinema_noactive" >华谊兄弟影院-长风店</a>
+      <a href="javascritp:void(0);" class="cinema_name cinema_noactive">环艺电影城</a>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>语言/特效</th>
+          <th>放映厅</th>
+          <th>蜘蛛价/影院价</th>
+          <th>选座/预览</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>21:30<br/>23:56散场</td>
+          <td>英语3D</td>
+          <td>4号厅</td>
+          <td>78.00元 <del>(140.0)</del></td>
+          <td>
+            <p>
+              <a class="btn btn-primary btn-md" href="./seat-page.html" role="button">选座购票</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>21:30<br/>23:56散场</td>
+          <td>英语3D</td>
+          <td>4号厅</td>
+          <td>78.00元 <del>(140.0)</del></td>
+          <td>
+            <p>
+              <a class="btn btn-primary btn-md" href="./seat-page.html" role="button">选座购票</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>21:30<br/>23:56散场</td>
+          <td>英语3D</td>
+          <td>4号厅</td>
+          <td>78.00元 <del>(140.0)</del></td>
+          <td>
+            <p>
+              <a class="btn btn-primary btn-md" href="./seat-page.html" role="button">选座购票</a>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+       $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
+    </script>
+    <script type="text/javascript">
+      $(".cinema_name").click(function() {
+        $(".cinemaholder").children("a").removeClass("cinema_active");
+        $(".cinemaholder").children("a").addClass("cinema_noactive");
+        $(this).removeClass("cinema_noactive");
+        $(this).addClass("cinema_active");
+      });
+      //
+      $(".date").click(function() {
+        $(".dateholder").children("a").removeClass("date_active");
+        $(".dateholder").children("a").addClass("date_noactive");
+        $(this).removeClass("date_noactive");
+        $(this).addClass("date_active");
+      });
+    </script>
+  </body>
+</html>

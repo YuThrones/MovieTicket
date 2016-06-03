@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>order</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+      .sum {
+        font-size: 26px;
+      }
+      checkbox {
+        width: 50px;
+      }
+      #pay_method {
+        margin-top: 30px;
+        font-size: 20px;
+      }
+      .pay_box {
+        border:2px solid #ccc;
+        border-radius:5px;
+        padding: 15px;
+      }
+    </style>
+
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">DPT</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Main Page</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./register.html">Register</a></li>
+            <li><a href="./login.html">Login</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>电影</th>
+          <th>影院</th>
+          <th>放映厅</th>
+          <th>座位</th>
+          <th>时间</th>
+          <th>价格</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+              <input type="checkbox" checked="checked" />
+          </td>
+          <td>美国队长3</td>
+          <td>华谊兄弟影院-长风店</td>
+          <td>4号厅</td>
+          <td>5排2列</td>
+          <td>5月28日19：01<br/>预计21：30结束</td>
+          <td>78.00元</td>
+        </tr>
+        <tr>
+          <td>
+              <input type="checkbox" checked="checked" />
+          </td>
+          <td>美国队长3</td>
+          <td>华谊兄弟影院-长风店</td>
+          <td>4号厅</td>
+          <td>5排3列</td>
+          <td>5月28日19：01<br/>预计21：30结束</td>
+          <td>78.00元</td>
+        </tr>
+        <tr>
+          <td>
+              <input type="checkbox" checked="checked" />
+          </td>
+          <td>韩国队长</td>
+          <td>环艺电影城</td>
+          <td>5号厅</td>
+          <td>11排7列</td>
+          <td>5月29日23：01<br/>预计1：30结束</td>
+          <td>65.00元</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container">
+      <div class="pull-right">
+        <p class="sum">合计：221.0元</p>
+        <a id="send_order_btn" class="btn btn-primary btn-md" href="javascritp:void(0);" role="button">提交订单</a>
+      </div>
+    </div>
+    <div id="pay_method" class="hidden">
+      支付方式：
+      <div class="pay_box">
+        <a id="remain_pay_btn" href="javascritp:void(0);" class="btn btn-primary btn-md">订票通余额（剩余808.0元）</a>
+      </div>
+    </div>
+    <div id="pay_success_info" class="hidden alert alert-info">
+      支付成功！请在影院终端机输入验证码238291取票。
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+      $(".foo img").addClass("carousel-inner img-responsive img-rounded");
+      $("#send_order_btn").click(function(){
+        $(this).addClass("hidden");
+        $("#pay_method").removeClass("hidden");
+      });
+      $("#remain_pay_btn").click(function(){
+        $("#pay_method").addClass("hidden");
+        $("#pay_success_info").removeClass("hidden");
+      })
+    </script>
+  </body>
+</html>

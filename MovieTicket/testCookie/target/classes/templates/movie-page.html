@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>movie</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+      .poster {
+        width: 35%;
+      }
+      .floata {
+        float: left;
+      }
+      .floatb {
+        float: left;
+        clear: both;
+      }
+      .tagg {
+        margin-top: 40px;
+        margin-bottom: 0px;
+      }
+    </style>
+
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">DPT</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Main Page</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./register.html">Register</a></li>
+            <li><a href="./login.html">Login</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="row">
+
+      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <img class="img-rounded" src="img/s1.jpg" alt="pic pic" th:src="${movie.getImgUrl()}"/>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <h3 th:text="${movie.getMovieName()}">美国队长3</h3>
+        <h5 th:text="${movie.getMovieName()}">Captain America: Civil War</h5>
+        <br />
+        <p>
+          上映日期：<span th:text="${movie.getDate()}">2016-05-06  [上映中]</span><br />
+          片长/语言：<span th:text="${movie.getLanguage()}">147分钟/英语</span><br />
+          <br />
+          导演/演员：<span th:text="${movie.getActor()}">乔·卢素 / 安东尼·卢素/克里斯·埃文斯 / 小罗伯特·唐尼 / 斯嘉丽·约翰逊 / 塞巴斯蒂安·斯坦 / 杰瑞米·雷纳 / 伊丽莎白·奥尔森 / 查德维克·博斯曼 / 弗兰克·格里罗 / 汤姆·霍兰德 / 丹尼尔·布鲁赫</span><br />
+          类   型： <span th:text="${movie.getType()}">动作  科幻  冒险</span>
+        </p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="./select-cinema.html" role="button" th:href="@{'select-cinema' + '?movieName=' + ${movie.getMovieName()}}">&emsp;购&emsp;票&emsp;» </a>
+        </p>
+      </div>
+    </div> <!-- /container -->
+
+    <div>
+      <h2 class="tagg">详细内容</h2>
+      <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+          <h3>剧情简介</h3>
+          <p th:text="${movie.getMovieDescription()}">
+    　    美国队长史蒂夫·罗杰斯（克里斯·埃文斯 Chris Evans 饰）带领着全新组建的复仇者联盟，继续维护世界和平。然而，一次执行任务时联盟成员不小心造成大量平民伤亡，从而激发政治压力，政府决定通过一套监管系统来管理和领导复仇者联盟。联盟内部因此分裂为两派——一方由史蒂夫·罗杰斯领导，他主张维护成员自由，在免受政府干扰的情况下保护世界；另一方则追随托尼·斯塔克（小罗伯特·唐尼 Robert Downey Jr. 饰），他令人意外地决定支持政府的监管和责任制体系。神秘莫测的巴基（塞巴斯蒂安·斯坦 Sebastian Stan 饰）似乎成为内战的关键人物……
+          </p>  
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+       $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
+    </script>
+  </body>
+</html>

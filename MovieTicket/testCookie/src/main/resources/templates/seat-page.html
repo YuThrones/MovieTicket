@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>seat</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+
+      .seat_holder {
+        margin-top: 30px;
+      }
+      .select_seat_btn {
+        margin-top: 30px;
+      }
+    </style>
+
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">DPT</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Main Page</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/register"  th:if="${param.loout}">Register</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="row">
+      <div class="col-lg-2 col-md-0 col-sm-0 col-xs-0"></div>
+      <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 foo">
+        <img src="./img/s1.jpg" />
+      </div>
+      <div>
+        <p>
+          <br/>
+          影院：SFC上影-永华店<br/>
+          语言/版本：英语 3D<br/>
+          场次：2016-05-19 星期四 23:40 11号厅<br/>
+          预计02:06散场
+        </p>
+      </div>
+    </div>
+
+    <div class="seat_holder">
+      <div class="row">
+        <div class="col-lg-3 col-md-0 col-sm-0 col-xs-0"></div>
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+          <div class="seat_row">
+            <a href="javascritp:void(0);"><img src="./img/unsee.png" width="23" height="19" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+            <a href="javascritp:void(0);"><img src="./img/red_seat.gif" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" width="23" height="19" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+          </div>
+          <div class="seat_row">
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+            <a href="javascritp:void(0);"><img src="./img/red_seat.gif" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" width="23" height="19" /></a>
+            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row select_seat_btn">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <a class="btn btn-primary btn-md" href="./order-page.html" role="button">确认座位</a>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+      $(".foo img").addClass("carousel-inner img-responsive img-rounded");
+      $(".empty_seat").hover(function(){
+        $(this).children("img").attr("src", "./img/green_seat.gif");
+      }, function(){
+        if($(this).attr("state") != "selected") {
+          $(this).children("img").attr("src", "./img/empty_seat.gif");
+        }
+      });
+      $(".empty_seat").click(function(){
+        if ($(this).attr("state") == "selected") {
+          $(this).attr("state", "empty");
+          $(this).children("img").attr("src", "./img/empty_seat.gif");
+        } else {
+          $(this).attr("state", "selected");
+          $(this).children("img").attr("src", "./img/green_seat.gif");
+        }
+        
+      });
+      $("selected_seat").click(function(){
+        $(this).removeClass("selected_seat");
+        $(this).addClass("empty_seat");
+        $(this).children("img").attr("src", "./img/empty_seat.gif");
+      });
+    </script>
+  </body>
+</html>
