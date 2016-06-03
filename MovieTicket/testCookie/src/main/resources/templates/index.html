@@ -55,8 +55,8 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="./register.html">Register</a></li>
-            <li><a href="./login.html">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->
@@ -97,47 +97,10 @@
     <div class="marketing">
       <!-- Three columns of text below the carousel -->
       <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s2.jpg" alt="pic pic" th:src="${movieList.get(0).getImgUrl()}" />
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo" th:each="movie : ${movieList}">
+          <img class="img-rounded" src="img/s2.jpg" alt="pic pic" th:src="${movie.getImgUrl()}" />
           <h2>Heading</h2>
-          <p><a class="btn btn-default" href="/movie-page" role="button" th:href="@{'movie-page' + '?name=' + ${movieList.get(0).getMovieName()}}">View details »</a></p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/a.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}" />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button" th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s2.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}" />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button" th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s2.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}"  />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button" th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
-        </div>
-      </div><!-- /.row -->
-      <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s1.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}"  />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button"  th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s1.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}"  />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button"  th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s1.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}"  />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button"  th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="img/s1.jpg" alt="pic pic" th:src="${movieList.get(1).getImgUrl()}"  />
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="./movie-page.html" role="button"  th:href="@{'movie-page' + '?name=' + ${movieList.get(1).getMovieName()}}">View details »</a></p>
+          <p><a class="btn btn-default" href="/movie-page" role="button" th:href="@{'movie-page' + '?name=' + ${movie.getMovieName()}}">View details »</a></p>
         </div>
       </div><!-- /.row -->
       </div>

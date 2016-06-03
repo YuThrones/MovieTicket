@@ -56,9 +56,9 @@
       <div>
         <p>
           <br/>
-          影院：SFC上影-永华店<br/>
-          语言/版本：英语 3D<br/>
-          场次：2016-05-19 星期四 23:40 11号厅<br/>
+          影院：<span th:text="${cinema.getCinemaName()}">SFC上影-永华店</span><br/>
+          语言/版本：<span th:text="${movie.getLanguage()}">英语 3D</span><br/>
+          场次：<span th:text="${cinema.getScreenMap()['5月19日'][0].getTime()}">2016-05-19 星期四 23:40 11号厅</span><br/>
           预计02:06散场
         </p>
       </div>
@@ -68,20 +68,12 @@
       <div class="row">
         <div class="col-lg-3 col-md-0 col-sm-0 col-xs-0"></div>
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-          <div class="seat_row">
-            <a href="javascritp:void(0);"><img src="./img/unsee.png" width="23" height="19" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
-            <a href="javascritp:void(0);"><img src="./img/red_seat.gif" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" width="23" height="19" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
-          </div>
-          <div class="seat_row">
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
-            <a href="javascritp:void(0);"><img src="./img/red_seat.gif" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" width="23" height="19" /></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="./img/empty_seat.gif" /></a>
+          <div class="seat_row"  th:each="row : ${cinema.getScreenMap()['5月19日'][0].seatOrdered}">
+          
+          <a href="javascritp:void(0);" th:each="column : ${row}"
+            th:class="${column}?'red_seat':'empty_seat'"><img src="./img/red_seat.gif"
+             th:src="${column}?'./img/red_seat.gif':'./img/empty_seat.gif'"/></a>
+             
           </div>
         </div>
       </div>

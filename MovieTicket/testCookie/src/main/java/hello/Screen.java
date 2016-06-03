@@ -5,6 +5,7 @@ public class Screen {
 	private String time;
 	private String room;
 	private double price;
+	public boolean seatOrdered[][] = new boolean[2][3];
 	
 	public String getMovieName() {
 		return this.movieName;

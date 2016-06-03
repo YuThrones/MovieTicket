@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		initUser();
 		initMovie();
-//		initCinema();
+		initCinema();
 		
 		System.out.println("Init done");
 	}
@@ -40,21 +40,29 @@ public class Application implements CommandLineRunner{
 	private void initMovie() {
 		movieRepository.deleteAll();
 		
-		Movie movie0 = new Movie("Captain America3", "boom", "2016-05-12", "img/movie/s1.jpg", "英文", "美国队长", "动作");
-		Movie movie1 = new Movie("s2", "boom again", "2016-06-1", "img/movie/s2.jpg", "英文", "复仇者", "动作");
-		movieRepository.save(movie0);
-		movieRepository.save(movie1);
+		
+		for(int i = 0; i < 100; i++) {
+			Movie movie0 = new Movie("Captain America3", "boom", "2016-05-12", "img/movie/s1.jpg", "英文", "美国队长", "动作");
+			Movie movie1 = new Movie("s2", "boom again", "2016-06-1", "img/movie/s2.jpg", "英文", "复仇者", "动作");
+			movieRepository.save(movie0);
+			movieRepository.save(movie1);
+		}
 	}
 	
 	private void initCinema() {
+		cinemaRepository.deleteAll();
+		
 		Screen screen = new Screen();
-		screen.setMovieName("复仇者联盟3");
+		screen.setMovieName("Captain America3");
 		screen.setPrice(1314);
 		screen.setRoom("4号厅");
-		screen.setTime("21:00-230:00");
+		screen.setTime("21:00-23:00");
+		screen.seatOrdered[0][1] = true;
 		
 		Cinema cinema = new Cinema();
+		for (int i = 0; i < 4; i++) {
 		cinema.addScreen("5月19日", screen);
+		}
 		cinema.setCinemaName("大光明影院");
 		
 		cinemaRepository.save(cinema);
@@ -70,7 +78,7 @@ public class Application implements CommandLineRunner{
 		Map<String, List<Screen>> screenMap = cinema.getScreenMap();
 		Set<String> timeSet = screenMap.keySet();
 		for (String time:timeSet) {
-			System.out.println("  Time: ");
+			System.out.println("  Time: " + time);
 			for (Screen screen:screenMap.get(time)) {
 				System.out.println("    MovieName: " + screen.getMovieName());
 				System.out.println("    Price: " + screen.getPrice());

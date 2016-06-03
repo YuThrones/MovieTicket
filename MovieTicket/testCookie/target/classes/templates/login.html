@@ -1,20 +1,106 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example </title>
-    </head>
-    <body>
-        <div th:if="${param.error}">
-            Invalid username and password.
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>login</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <style type="text/css">
+
+      .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin .checkbox {
+        font-weight: normal;
+      }
+      .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    </style>
+
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">DPT</a>
         </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Main Page <span class="sr-only">(current)</span></a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./register.html">Register</a></li>
+            <li class="active"><a href="./login.html">Login</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+
+      <form class="form-signin" th:action="@{/login}" method="post" th:object="${user}">
+        <h2 class="form-signin-heading">Please Login</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="UserName" required="" autofocus="" th:field="*{username}"/>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" th:field="*{password}"/>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"/> Remember me
+          </label>
         </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
-    </body>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+      </form>
+
+    </div> <!-- /container -->
+    
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+       $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
+    </script>
+  </body>
 </html>

@@ -28,6 +28,7 @@ public class UserController implements CommandLineRunner {
 	
 	 @RequestMapping(value="/login", method=RequestMethod.GET)
 	    public String userForm(Model model) {
+		 System.out.println("/login  Get");
 	        model.addAttribute("user", new User());
 	        return "login";
 	 }
@@ -35,32 +36,16 @@ public class UserController implements CommandLineRunner {
 	 @RequestMapping(value="/login", method=RequestMethod.POST)
 	    public String greetingSubmit(@ModelAttribute User user, Model model,
 	    		HttpServletResponse response) {
-		 
+		 System.out.println("/login  POST");
 //		 repository.save(user);
 	    	if(userRepository.findByUsername(user.getUsername()) != null
 	    			&& userRepository.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())) {
 	    		response.addCookie(new Cookie("token", "user-token"));
-	    		return "home";
+	    		return "index";
 	    	}
 	    	return "login";
 	}
-	 
-	 @RequestMapping(value="/home", method=RequestMethod.GET)
-	 public String visitHome(Model model,
-	    		@CookieValue(value = "token", defaultValue = "empty") String cookie) {
-	    	if(cookie.equals("user-token")) {
-	    		
-	    		for (User user: userRepository.findAll()) {
-	    			String output = "User: " + user.getUsername() + "  Password: " + user.getPassword() +" \n";
-	    			System.out.println(output);
-	    		}
-	    		
-	    		return "home";
-	    	} else {
-	    		return "login";
-	    	}
-	       
-	}
+	
 	 
 	 @RequestMapping(value="/register", method=RequestMethod.GET)
 	    public String register(Model model) {
@@ -129,6 +114,34 @@ public class UserController implements CommandLineRunner {
 //	    	model.addAttribute("time", time);
 //	    	return "select-cinema";
 //	    }
+	 
+	 @RequestMapping(value="/seat-page", method=RequestMethod.GET)
+	 public String seatPage(@RequestParam(value="movieName", defaultValue="") String movieName,
+	    		@RequestParam(value="time", defaultValue="") String time,
+	    		@RequestParam(value="cinemaName", defaultValue="") String cinemaName,
+	    		@RequestParam(value="detailTime", defaultValue="") String detailTime,
+	    		Model model) {
+		 if (movieName.equals("") || time.equals("") || cinemaName.equals("") || detailTime.equals("")
+				 || movieRepository.findByMovieName(movieName).isEmpty()
+				 || cinemaRepository.findByCinemaName(cinemaName).isEmpty()) {
+			 return "index";
+		 }
+		 
+		 System.out.println("CinemaName:" + cinemaName);
+		 System.out.println("Cinema:" + movieRepository.findByMovieName(movieName).get(0).getMovieName());
+		 System.out.println( cinemaRepository.findByCinemaName(cinemaName).get(0).getCinemaName());
+		 
+		 Cinema cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
+		 System.out.println(cinema.getScreenMap().get("5月19日").get(0).getTime());
+		 
+		 System.out.println("done");
+		 model.addAttribute("movie", movieRepository.findByMovieName(movieName).get(0));
+		 model.addAttribute("cinema", cinemaRepository.findByCinemaName(cinemaName).get(0));
+		 model.addAttribute("time", time);
+		 model.addAttribute("map", cinema.getScreenMap());
+		 return "seat-page";
+	 }
+	
 
 	@Override
 	public void run(String... args) throws Exception {

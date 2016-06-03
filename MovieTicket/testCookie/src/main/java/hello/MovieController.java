@@ -1,5 +1,6 @@
 package hello;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +19,62 @@ public class MovieController {
 	private CinemaRepository cinemaRepository;
 	
 	 @RequestMapping("/select-cinema/json")
-	    public PageItem selectPage(@RequestParam(value="movieName", defaultValue="") String movieName,
+	    public List<Screen> selectPage(@RequestParam(value="movieName", defaultValue="") String movieName,
+	    		@RequestParam(value="time", defaultValue="") String time,
+	    		@RequestParam(value="cinemaName", defaultValue="") String cinemaName,
 	    		Model model) {
-		    PageItem pageItem = new PageItem();
+//		    PageItem pageItem = new PageItem();
+//		    
+//		    if (movieRepository.findByMovieName(movieName).isEmpty()) {
+//		    	pageItem.movie = null;
+//		    }
+//		    else {
+//		    	pageItem.movie = movieRepository.findByMovieName(movieName).get(0);
+//		    }
+//		    
+//		    
+//		    pageItem.cinemaList = cinemaRepository.findAll();
+//		    
+//		    pageItem.timeList.add("5月19日");
+//		    pageItem.timeList.add("5月20日");
+//		    pageItem.timeList.add("5月21日");
+//		    pageItem.timeList.add("5月22日");
+		    
+		    
+		    Cinema cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
+		    List<Screen> screenList = new ArrayList<Screen>();
+		    for(Screen screen:cinema.getScreenListByTime(time)) {
+		    	if (screen.getMovieName().equals(movieName)) {
+		    		screenList.add(screen);
+		    	}
+		    }
+		    
+	    	return screenList;
+	}
+	
+	 @RequestMapping("/seat-page/json")
+	 public SeatPageItem seatPage(@RequestParam(value="movieName", defaultValue="") String movieName,
+	    		@RequestParam(value="time", defaultValue="5月19日") String time,
+	    		@RequestParam(value="cinemaName", defaultValue="da") String cinemaName,
+	    		Model model) {
+		    SeatPageItem seatPageItem = new SeatPageItem();
 		    
 		    if (movieRepository.findByMovieName(movieName).isEmpty()) {
-		    	pageItem.movie = null;
+		    	seatPageItem.movie = null;
 		    }
 		    else {
-		    	pageItem.movie = movieRepository.findByMovieName(movieName).get(0);
+		    	seatPageItem.movie = movieRepository.findByMovieName(movieName).get(0);
 		    }
 		    
+		    seatPageItem.time = time;
+		    if (cinemaRepository.findByCinemaName(cinemaName).isEmpty()) {
+		    	seatPageItem.cinema = null;
+		    	
+		    }
+		    else {
+		    	seatPageItem.cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
+		    }
 		    
-		    pageItem.cinemaList = cinemaRepository.findAll();
-		    
-		    pageItem.timeList.add("5月19日");
-		    pageItem.timeList.add("5月20日");
-		    pageItem.timeList.add("5月21日");
-		    pageItem.timeList.add("5月22日");
-		    
-	    	return pageItem;
-	    }
+	    	return seatPageItem;
+	}
 }
