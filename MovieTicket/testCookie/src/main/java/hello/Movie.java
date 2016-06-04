@@ -16,6 +16,7 @@ public class Movie {
 	
 	public Movie() {};
 	
+	
 	public Movie(String movieName, String movieDescription,
 			String date, String url, String language, String actor, String type) {
 		this.movieName = movieName;
@@ -53,6 +54,34 @@ public class Movie {
 	
 	public String getType() {
 		return this.type;
+	}
+	
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+	
+	public void setMovieDescription(String movieDescription) {
+		this.movieDescription = movieDescription;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+	public void setActor(String actor) {
+		this.actor = actor;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	@Override

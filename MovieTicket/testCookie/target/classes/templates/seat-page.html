@@ -30,13 +30,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./index.html">DPT</a>
+          <a class="navbar-brand" href="/index">DPT</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="./index.html">Main Page</a></li>
+            <li><a href="/index">Main Page</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -58,8 +58,7 @@
           <br/>
           影院：<span th:text="${cinema.getCinemaName()}">SFC上影-永华店</span><br/>
           语言/版本：<span th:text="${movie.getLanguage()}">英语 3D</span><br/>
-          场次：<span th:text="${cinema.getScreenMap()['5月19日'][0].getTime()}">2016-05-19 星期四 23:40 11号厅</span><br/>
-          预计02:06散场
+          场次：<span th:text="${screen.getTime()}">2016-05-19 星期四 23:40 11号厅</span><br/>
         </p>
       </div>
     </div>
@@ -67,12 +66,20 @@
     <div class="seat_holder">
       <div class="row">
         <div class="col-lg-3 col-md-0 col-sm-0 col-xs-0"></div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-          <div class="seat_row"  th:each="row : ${cinema.getScreenMap()['5月19日'][0].seatOrdered}">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:with="rowIndex=-1">
+          <div class="seat_row"  th:each="row : ${screen.seatOrdered}, " th:with="rowIndex=${rowIndex}+1, colIndex=-1">
           
           <a href="javascritp:void(0);" th:each="column : ${row}"
-            th:class="${column}?'red_seat':'empty_seat'"><img src="./img/red_seat.gif"
-             th:src="${column}?'./img/red_seat.gif':'./img/empty_seat.gif'"/></a>
+          th:with="colIndex=${colIndex}+1"
+          
+            th:class="${column}?'red_seat':'empty_seat'">
+            <img src="./img/red_seat.gif"
+             th:src="${column}?'./img/red_seat.gif':'./img/empty_seat.gif'"
+             />
+             
+             <span class="hidden"  th:text="${rowIndex} + ',' + ${colIndex}">xxx</span>
+             
+            </a>
              
           </div>
         </div>
@@ -82,7 +89,7 @@
     <div class="row select_seat_btn">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <a class="btn btn-primary btn-md" href="./order-page.html" role="button">确认座位</a>
+        <a class="btn btn-primary btn-md" href="/order-page" role="button">确认座位</a>
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

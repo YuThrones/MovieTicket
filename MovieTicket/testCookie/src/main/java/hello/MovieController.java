@@ -23,26 +23,16 @@ public class MovieController {
 	    		@RequestParam(value="time", defaultValue="") String time,
 	    		@RequestParam(value="cinemaName", defaultValue="") String cinemaName,
 	    		Model model) {
-//		    PageItem pageItem = new PageItem();
-//		    
-//		    if (movieRepository.findByMovieName(movieName).isEmpty()) {
-//		    	pageItem.movie = null;
-//		    }
-//		    else {
-//		    	pageItem.movie = movieRepository.findByMovieName(movieName).get(0);
-//		    }
-//		    
-//		    
-//		    pageItem.cinemaList = cinemaRepository.findAll();
-//		    
-//		    pageItem.timeList.add("5月19日");
-//		    pageItem.timeList.add("5月20日");
-//		    pageItem.timeList.add("5月21日");
-//		    pageItem.timeList.add("5月22日");
 		    
-		    
-		    Cinema cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
+		 System.out.println(movieName);
+		 System.out.println(time);
+		 System.out.println(cinemaName);
+		 
 		    List<Screen> screenList = new ArrayList<Screen>();
+		   if(cinemaRepository.findByCinemaName(cinemaName).isEmpty()) return screenList;
+		 
+		    Cinema cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
+
 		    for(Screen screen:cinema.getScreenListByTime(time)) {
 		    	if (screen.getMovieName().equals(movieName)) {
 		    		screenList.add(screen);

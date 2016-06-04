@@ -39,4 +39,14 @@ public class Cinema {
 		screenList.add(screen);
 		screenMap.put(time, screenList);
 	}
+	
+	public void addScreenList(String time, List<Screen> screenList) {
+		if (screenMap.get(time) == null) {
+			screenMap.put(time, screenList);
+			return;
+		}
+	    for(Screen screen:screenList) {
+	    	screenMap.get(time).add(screen);
+	    }
+	}
 }
