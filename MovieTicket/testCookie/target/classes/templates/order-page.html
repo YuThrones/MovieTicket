@@ -70,38 +70,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr th:each="order : ${orderList}">
           <td>
               <input type="checkbox" checked="checked" />
           </td>
-          <td>美国队长3</td>
-          <td>华谊兄弟影院-长风店</td>
-          <td>4号厅</td>
-          <td>5排2列</td>
-          <td>5月28日19：01<br/>预计21：30结束</td>
-          <td>78.00元</td>
-        </tr>
-        <tr>
-          <td>
-              <input type="checkbox" checked="checked" />
-          </td>
-          <td>美国队长3</td>
-          <td>华谊兄弟影院-长风店</td>
-          <td>4号厅</td>
-          <td>5排3列</td>
-          <td>5月28日19：01<br/>预计21：30结束</td>
-          <td>78.00元</td>
-        </tr>
-        <tr>
-          <td>
-              <input type="checkbox" checked="checked" />
-          </td>
-          <td>韩国队长</td>
-          <td>环艺电影城</td>
-          <td>5号厅</td>
-          <td>11排7列</td>
-          <td>5月29日23：01<br/>预计1：30结束</td>
-          <td>65.00元</td>
+          <td th:text="${order.movieName}">美国队长3</td>
+          <td th:text="${order.cinemaName}">华谊兄弟影院-长风店</td>
+          <td th:text="${order.room}">4号厅</td>
+          <td><span th:text="${order.seatItem.rowIndex+1}">5</span>排<span th:text="${order.seatItem.colIndex+1}">2</span>列</td>
+          <td th:text="${order.date}">5月28日19：01<br th:text="${order.detailTime}"/>预计21：30结束</td>
+          <td th:text="${order.price}">78.00元</td>
         </tr>
       </tbody>
     </table>

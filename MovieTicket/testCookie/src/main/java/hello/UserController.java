@@ -1,5 +1,6 @@
 package hello;
 
+import java.security.KeyStore.TrustedCertificateEntry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController implements CommandLineRunner {
-	
+	//操作中可能会涉及的三个数据库
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -26,25 +27,30 @@ public class UserController implements CommandLineRunner {
 	@Autowired
 	private CinemaRepository cinemaRepository;
 	
+	//请求登陆页面，如果找到已有cookie，说明之前登陆过，直接跳到index界面
 	 @RequestMapping(value="/login", method=RequestMethod.GET)
 	    public String userForm(@CookieValue(value = "token", defaultValue = "empty") String cookie,
 	    		Model model) {
-		 System.out.println("/login  Get");
+//		 System.out.println("/login  Get");
+		 if (!cookie.equals("empty"))
+			 return "redirect:/index";
+		 
 		    model.addAttribute("token", cookie);
 	        model.addAttribute("user", new User());
 	        return "login";
 	 }
 	 
+	 //浏览器发送带有用户名密码的POST请求，从数据库中检索，如果找到相应User则成功登陆，添加cookie，跳转到index界面，如果没有符合的条目，则刷新登陆页面，重新输入。
 	 @RequestMapping(value="/login", method=RequestMethod.POST)
 	    public String greetingSubmit(@CookieValue(value = "token", defaultValue = "empty") String cookie,
 	    		@ModelAttribute User user, Model model,
 	    		HttpServletResponse response) {
-		 System.out.println("/login  POST");
+//		 System.out.println("/login  POST");
 		 model.addAttribute("token", cookie);
 //		 repository.save(user);
 	    	if(userRepository.findByUsername(user.getUsername()) != null
 	    			&& userRepository.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())) {
-	    		response.addCookie(new Cookie("token", "user-token"));
+	    		response.addCookie(new Cookie("token", user.getUsername()));
 	    		
 	    		return "redirect:/index";
 	    	}
@@ -130,7 +136,7 @@ public class UserController implements CommandLineRunner {
 			 return "redirect:/index";
 		 }
 		 
-		 if (!cookie.equals("user-token"))
+		 if (cookie.equals("empty"))
 			 return "redirect:/login";
 		 
 		 Screen screen = screenList.get(index);
@@ -151,18 +157,78 @@ public class UserController implements CommandLineRunner {
 	    		@RequestParam(value="time", defaultValue="") String time,
 	    		@RequestParam(value="cinemaName", defaultValue="") String cinemaName,
 //	    		@RequestParam(value="screen") Screen screen,
-	    		@RequestParam(value="seatList", defaultValue="") String seatList,
+	    		@RequestParam(value="detailTime", defaultValue="") String detailTime,
+	    		@RequestParam(value="seat", defaultValue="") String seat,
 	    		@CookieValue(value = "token", defaultValue = "empty") String cookie,
 	    		Model model) {
 		 model.addAttribute("token", cookie);
-		 if (!cookie.equals("user-token"))
+		 if (cookie.equals("empty"))
 			 return "redirect:/login";
-		 if (movieName.equals("") || time.equals("") || cinemaName.equals("") || seatList.equals("")
-				 || movieRepository.findByMovieName(movieName).isEmpty()
+		 if (movieName.equals("") || time.equals("") || cinemaName.equals("") 
+				 || detailTime.equals("")
+				 || seat.equals("")
+//				 || screen == null
+				 ||  movieRepository.findByMovieName(movieName).isEmpty()
 				 || cinemaRepository.findByCinemaName(cinemaName).isEmpty()) {
 			 return "redirect:/index";
 		 }
-		 return "seat-page";
+		 System.out.println(cinemaName);
+		 System.out.println(movieName);
+		 System.out.println(time);
+//		 System.out.println(screen.getTime());
+		 System.out.println(detailTime);
+		 System.out.println(seat);
+		 
+		 List<SeatItem> seatList = getSeatItemList(seat);
+		 Cinema cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
+		 cinemaRepository.delete(cinema);
+		 List<Screen> screenList = cinema.getScreenListByTime(time);
+		 Screen screen = new Screen();
+		 for (Screen temp : screenList) {
+			 if (temp.getMovieName().equals(movieName) && temp.getTime().equals(detailTime)) {
+				 screen = temp;
+			 }
+		 }
+		 
+		 List<Order> orderList = new ArrayList<Order>();
+		 
+		 for (SeatItem temp : seatList) {
+			 screen.seatOrdered[temp.rowIndex][temp.colIndex] = true;
+			 Order order = new Order();
+			 order.userName = cookie;
+			 order.cinemaName = cinemaName;
+			 order.movieName = movieName;
+			 order.date = time;
+			 order.detailTime = detailTime;
+			 order.seatItem = temp;
+			 order.room = screen.getRoom();
+			 order.price = screen.getPrice();
+			 orderList.add(order);
+		 }
+		 
+		 model.addAttribute("cinemaName", cinemaName);
+		 model.addAttribute("movieName", movieName);
+		 model.addAttribute("orderList", orderList);
+		 model.addAttribute("detailTime", detailTime);
+		 model.addAttribute("time", time);
+		 
+		 cinema.updateScreenList(time, screenList);
+		 cinemaRepository.save(cinema);
+		 
+		 return "order-page";
+	 }
+	 
+	 //把从客户端得到的座位下标信息由一个长String转化为一个SeatItem列表
+	 public List<SeatItem> getSeatItemList(String seat) {
+		 List<SeatItem> seatList = new ArrayList<SeatItem>();
+		 for (String seatTemp : seat.split("-")) {
+			 SeatItem temp = new SeatItem();
+			 String[] tempList = seatTemp.split(",");
+			 temp.rowIndex = Integer.parseInt(tempList[0]);
+			 temp.colIndex = Integer.parseInt(tempList[1]);
+			 seatList.add(temp);
+		 }
+		 return seatList;
 	 }
 	
 

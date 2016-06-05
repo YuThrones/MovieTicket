@@ -49,4 +49,8 @@ public class Cinema {
 	    	screenMap.get(time).add(screen);
 	    }
 	}
+	
+	public void updateScreenList(String time, List<Screen> screenList) {
+		this.screenMap.put(time, screenList);
+	}
 }

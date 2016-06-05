@@ -35,8 +35,14 @@ public class Application implements CommandLineRunner{
 			System.out.println(movie.getMovieName());
 		}
 		
-		
-		System.out.println("Init done");
+//		UserController usercon = new UserController();
+//		List<SeatItem> list= usercon.getSeatItemList("3-5,1-4,6-6,3-9");
+//		for (SeatItem seatItem : list) {
+//			System.out.print(seatItem.rowIndex);
+//			System.out.println(seatItem.colIndex);
+//		}
+//		
+//		System.out.println("Init done");
 	}
 	
 	private void initUser() {
@@ -73,7 +79,7 @@ public class Application implements CommandLineRunner{
 				"/img/movie/moshou.jpg"
 				);
 		
-		addMovie("The Divergent Series: Allegiant",
+		addMovie("分歧者3：忠诚世界",
 				"2016-05-20",
 				"121分钟/英语",
 				"罗伯特·斯文克/谢琳·伍德蕾 / 提奥·詹姆斯 / 迈尔斯·特勒 / 安塞尔·艾尔高特 / 娜奥米·沃茨 / 杰夫·丹尼尔斯 / 比尔·斯卡斯加德",
@@ -118,9 +124,9 @@ public class Application implements CommandLineRunner{
 				"/img/movie/America3.jpg"
 				);
 		
-		for (Cinema oneCinema:cinemaRepository.findAll()) {
-			showCinema(oneCinema);
-		}
+//		for (Cinema oneCinema:cinemaRepository.findAll()) {
+//			showCinema(oneCinema);
+//		}
 
 	}
 	

@@ -66,18 +66,18 @@
     <div class="seat_holder">
       <div class="row">
         <div class="col-lg-3 col-md-0 col-sm-0 col-xs-0"></div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:with="rowIndex=-1">
-          <div class="seat_row"  th:each="row : ${screen.seatOrdered}, " th:with="rowIndex=${rowIndex}+1, colIndex=-1">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+          <div class="seat_row"  th:each="row : ${screen.seatOrdered}">
           
           <a href="javascritp:void(0);" th:each="column : ${row}"
-          th:with="colIndex=${colIndex}+1"
+          
           
             th:class="${column}?'red_seat':'empty_seat'">
             <img src="./img/red_seat.gif"
              th:src="${column}?'./img/red_seat.gif':'./img/empty_seat.gif'"
              />
              
-             <span class="hidden"  th:text="${rowIndex} + ',' + ${colIndex}">xxx</span>
+             <span class="hidden"  th:text="${rowStat.index} + ',' + ${columnStat.index}">xxx</span>
              
             </a>
              
@@ -89,36 +89,14 @@
     <div class="row select_seat_btn">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <a class="btn btn-primary btn-md" href="/order-page" role="button">确认座位</a>
+        <a class="btn btn-primary btn-md" id="certainBtn" href="/order-page" role="button">确认座位</a>
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" >
-      $(".foo img").addClass("carousel-inner img-responsive img-rounded");
-      $(".empty_seat").hover(function(){
-        $(this).children("img").attr("src", "./img/green_seat.gif");
-      }, function(){
-        if($(this).attr("state") != "selected") {
-          $(this).children("img").attr("src", "./img/empty_seat.gif");
-        }
-      });
-      $(".empty_seat").click(function(){
-        if ($(this).attr("state") == "selected") {
-          $(this).attr("state", "empty");
-          $(this).children("img").attr("src", "./img/empty_seat.gif");
-        } else {
-          $(this).attr("state", "selected");
-          $(this).children("img").attr("src", "./img/green_seat.gif");
-        }
-        
-      });
-      $("selected_seat").click(function(){
-        $(this).removeClass("selected_seat");
-        $(this).addClass("empty_seat");
-        $(this).children("img").attr("src", "./img/empty_seat.gif");
-      });
-    </script>
+
+    <span class="hidden" id="detailTime" th:text="${screen.getTime()}"></span>
+    <script src="./js/seat.js"></script>
   </body>
 </html>
