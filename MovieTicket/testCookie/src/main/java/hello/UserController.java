@@ -27,6 +27,13 @@ public class UserController implements CommandLineRunner {
 	@Autowired
 	private CinemaRepository cinemaRepository;
 	
+	 //浏览器发送带有用户名密码的POST请求，从数据库中检索，如果找到相应User则成功登陆，添加cookie，跳转到index界面，如果没有符合的条目，则刷新登陆页面，重新输入。
+	 @RequestMapping("/")
+	    public String home(@CookieValue(value = "token", defaultValue = "empty") String cookie,
+				 Model model){
+	    	return "redirect:/index";
+	}
+	
 	//请求登陆页面，如果找到已有cookie，说明之前登陆过，直接跳到index界面
 	 @RequestMapping(value="/login", method=RequestMethod.GET)
 	    public String userForm(@CookieValue(value = "token", defaultValue = "empty") String cookie,
@@ -57,7 +64,7 @@ public class UserController implements CommandLineRunner {
 	    	return "login";
 	}
 	
-	 
+	 //渲染注册页面
 	 @RequestMapping(value="/register", method=RequestMethod.GET)
 	    public String register(@CookieValue(value = "token", defaultValue = "empty") String cookie,
 	    		Model model) {
@@ -66,6 +73,7 @@ public class UserController implements CommandLineRunner {
 	        return "register";
 	 }
 	 
+	 //提交注册信息，注册成功后返回登录界面
 	 @RequestMapping(value="/register", method=RequestMethod.POST)
 	 public String register(@ModelAttribute User user,
 			 @CookieValue(value = "token", defaultValue = "empty") String cookie,
@@ -73,12 +81,13 @@ public class UserController implements CommandLineRunner {
 		 model.addAttribute("token", cookie);
 		 if (userRepository.findByUsername(user.getUsername()) == null) {
 			 userRepository.save(user);
-			 System.out.println("User  " + user.getUsername() + "  create");
+//			 System.out.println("User  " + user.getUsername() + "  create");
 			 return "redirect:/login";
 		 }
 		 return "register";
 	 }
 	 
+	 //返回首页信息
 	 @RequestMapping(value="/index", method=RequestMethod.GET)
 	 public String index(@CookieValue(value = "token", defaultValue = "empty") String cookie,
 			 Model model) {
@@ -89,22 +98,23 @@ public class UserController implements CommandLineRunner {
 	     return "index";
 	 }
 	 
+	 //返回电影简介页面，显示电影详细信息
 	 @RequestMapping("/movie-page")
 	    public String moviePage(@RequestParam(value="name", defaultValue="empty") String name,
 	    		@CookieValue(value = "token", defaultValue = "empty") String cookie,
 	    		Model model) {
-	    	System.out.println("Movie-page");
+//	    	System.out.println("Movie-page");
 	    	model.addAttribute("token", cookie);
 	    	if (movieRepository.findByMovieName(name).isEmpty()) {
 	    		return "redirect:/index";
 	    	}
 		    Movie movie = movieRepository.findByMovieName(name).get(0);
-		    System.out.println(movie.getMovieName());
+//		    System.out.println(movie.getMovieName());
 	    	model.addAttribute("movie", movie);
 	    	return "movie-page";
 	    }
 	 
-	 
+	 //返回电影座位页面
 	 @RequestMapping(value="/seat-page", method=RequestMethod.GET)
 	 public String seatPage(@RequestParam(value="movieName", defaultValue="") String movieName,
 	    		@RequestParam(value="time", defaultValue="") String time,
@@ -113,7 +123,7 @@ public class UserController implements CommandLineRunner {
 	    		@CookieValue(value = "token", defaultValue = "empty") String cookie,
 	    		Model model) {
 		 model.addAttribute("token", cookie);
-		 System.out.println(index);
+//		 System.out.println(index);
 		 if (movieName.equals("") || time.equals("") || cinemaName.equals("")
 				 || movieRepository.findByMovieName(movieName).isEmpty()
 				 || cinemaRepository.findByCinemaName(cinemaName).isEmpty()) {
@@ -144,7 +154,7 @@ public class UserController implements CommandLineRunner {
 		 
 		 
 		 
-		 System.out.println("done");
+//		 System.out.println("done");
 		 model.addAttribute("movie", movieRepository.findByMovieName(movieName).get(0));
 		 model.addAttribute("cinema", cinemaRepository.findByCinemaName(cinemaName).get(0));
 		 model.addAttribute("time", time);
@@ -152,6 +162,7 @@ public class UserController implements CommandLineRunner {
 		 return "seat-page";
 	 }
 	 
+	 //根据选座页面提交的信息，显示订单页面，根据电影名，电影院名，场次时间，座位下标来确定订单内容
 	 @RequestMapping(value="/order-page", method=RequestMethod.GET)
 	 public String orderPage(@RequestParam(value="movieName", defaultValue="") String movieName,
 	    		@RequestParam(value="time", defaultValue="") String time,
@@ -172,16 +183,16 @@ public class UserController implements CommandLineRunner {
 				 || cinemaRepository.findByCinemaName(cinemaName).isEmpty()) {
 			 return "redirect:/index";
 		 }
-		 System.out.println(cinemaName);
-		 System.out.println(movieName);
-		 System.out.println(time);
+//		 System.out.println(cinemaName);
+//		 System.out.println(movieName);
+//		 System.out.println(time);
 //		 System.out.println(screen.getTime());
-		 System.out.println(detailTime);
-		 System.out.println(seat);
+//		 System.out.println(detailTime);
+//		 System.out.println(seat);
 		 
 		 List<SeatItem> seatList = getSeatItemList(seat);
 		 Cinema cinema = cinemaRepository.findByCinemaName(cinemaName).get(0);
-		 cinemaRepository.delete(cinema);
+//		 cinemaRepository.delete(cinema);
 		 List<Screen> screenList = cinema.getScreenListByTime(time);
 		 Screen screen = new Screen();
 		 for (Screen temp : screenList) {
@@ -192,8 +203,9 @@ public class UserController implements CommandLineRunner {
 		 
 		 List<Order> orderList = new ArrayList<Order>();
 		 
+		 
 		 for (SeatItem temp : seatList) {
-			 screen.seatOrdered[temp.rowIndex][temp.colIndex] = true;
+//			 screen.seatOrdered[temp.rowIndex][temp.colIndex] = true;
 			 Order order = new Order();
 			 order.userName = cookie;
 			 order.cinemaName = cinemaName;
@@ -213,7 +225,7 @@ public class UserController implements CommandLineRunner {
 		 model.addAttribute("time", time);
 		 
 		 cinema.updateScreenList(time, screenList);
-		 cinemaRepository.save(cinema);
+//		 cinemaRepository.save(cinema);
 		 
 		 return "order-page";
 	 }

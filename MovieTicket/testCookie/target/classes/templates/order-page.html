@@ -60,7 +60,6 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th></th>
           <th>电影</th>
           <th>影院</th>
           <th>放映厅</th>
@@ -71,9 +70,6 @@
       </thead>
       <tbody>
         <tr th:each="order : ${orderList}">
-          <td>
-              <input type="checkbox" checked="checked" />
-          </td>
           <td th:text="${order.movieName}">美国队长3</td>
           <td th:text="${order.cinemaName}">华谊兄弟影院-长风店</td>
           <td th:text="${order.room}">4号厅</td>
@@ -86,7 +82,7 @@
 
     <div class="container">
       <div class="pull-right">
-        <p class="sum">合计：221.0元</p>
+        <p class="sum">合计：<span th:text="${orderList.get(0).price}*${orderList.size()}">221.0</span>元</p>
         <a id="send_order_btn" class="btn btn-primary btn-md" href="javascritp:void(0);" role="button">提交订单</a>
       </div>
     </div>
@@ -102,16 +98,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" >
-      $(".foo img").addClass("carousel-inner img-responsive img-rounded");
-      $("#send_order_btn").click(function(){
-        $(this).addClass("hidden");
-        $("#pay_method").removeClass("hidden");
-      });
-      $("#remain_pay_btn").click(function(){
-        $("#pay_method").addClass("hidden");
-        $("#pay_success_info").removeClass("hidden");
-      })
+    <script type="text/javascript" src="js/order.js">
     </script>
   </body>
 </html>

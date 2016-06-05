@@ -31,24 +31,19 @@ public class Application implements CommandLineRunner{
 		initUser();
 		initMovie();
 		
-		for (Movie movie:movieRepository.findAll()) {
-			System.out.println(movie.getMovieName());
-		}
-		
-//		UserController usercon = new UserController();
-//		List<SeatItem> list= usercon.getSeatItemList("3-5,1-4,6-6,3-9");
-//		for (SeatItem seatItem : list) {
-//			System.out.print(seatItem.rowIndex);
-//			System.out.println(seatItem.colIndex);
+//		for (Movie movie:movieRepository.findAll()) {
+//			System.out.println(movie.getMovieName());
 //		}
-//		
-//		System.out.println("Init done");
+		
 	}
 	
+	//删除所有用户
 	private void initUser() {
 		userRepository.deleteAll();
 	}
 	
+	
+	//初始化电影数据库，加入8部电影
 	private void initMovie() {
 		movieRepository.deleteAll();
 	    
@@ -130,6 +125,7 @@ public class Application implements CommandLineRunner{
 
 	}
 	
+	//根据电影相关信息往数据库中添加电影
 	private void addMovie(String movieName,
 			String date,
 			String language,
@@ -159,7 +155,7 @@ public class Application implements CommandLineRunner{
 		}
 	}
 	
-	
+	//初始化电影院信息
 	private void initCinema() {
 		cinemaRepository.deleteAll();
 		
@@ -171,11 +167,12 @@ public class Application implements CommandLineRunner{
 			cinemaRepository.save(cinema);
 		}
 		
-		for (Cinema oneCinema:cinemaRepository.findAll()) {
-			showCinema(oneCinema);
-		}
+//		for (Cinema oneCinema:cinemaRepository.findAll()) {
+//			showCinema(oneCinema);
+//		}
 	}
 	
+	//得到包含这部电影的场次列表
 	public List<Screen> getScreenList(String movieName) {
 		List<Screen> screenList = new ArrayList<Screen>();
 		String[] timeList = {"9:00", "15:00", "21:00"};
@@ -192,6 +189,7 @@ public class Application implements CommandLineRunner{
 		return screenList;
 	}
 	
+	//展示所有电影院中包含的信息，仅用于测试
 	public void showCinema(Cinema cinema) {
 		System.out.println("Cinema Name: " + cinema.getCinemaName());
 		Map<String, List<Screen>> screenMap = cinema.getScreenMap();
